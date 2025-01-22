@@ -1,0 +1,18 @@
+services:
+  db:
+    container_name: db
+    image: mysql
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: resume
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 1234
+      TZ: 'Asia/Seoul'
+    ports:
+      - "3306:3306"
+    volumes:
+      - data_mysqldb:/var/lib/mysqldb
+    tty: true
+
+volumes:
+  data_mysqldb: null
