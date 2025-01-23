@@ -17,6 +17,7 @@ public class Career {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userId;
     private String companyName;
     private String deptName;
     private String grade;

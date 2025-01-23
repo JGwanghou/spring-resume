@@ -1,5 +1,9 @@
 package com.resume.gwangho.repository;
 
-public interface CareerRepository {
+import com.resume.gwangho.model.Career;
 
+import java.util.List;
+
+public interface CareerRepository {
+    List<Career> findByUserId(Long userId);
 }

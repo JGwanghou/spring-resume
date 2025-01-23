@@ -10,17 +10,17 @@
     <div class="left-section">
         <!-- 개인정보 및 사진 -->
         <div class="section">
-            <img class="photo" src="${photoUrl}" alt="프로필 사진">
-            <h2>${name}</h2>
-            <p>${email}</p>
-            <p>${phone}</p>
-            <p>${address}</p>
+<!--            <img class="photo" src="${photoUrl}" alt="프로필 사진">-->
+            <h2 th:text="${data['user'].name}">이름</h2>
+            <p th:text="${data['user'].email}">이메일</p>
+            <p th:text="${data['user'].phone}">번호</p>
+            <p th:text="${data['user'].address}">주소</p>
         </div>
         <!-- 자격증/스킬 -->
         <div class="section">
             <h3>자격증 및 스킬</h3>
             <ul>
-                <li>${certifications}</li>
+                <li>스킬</li>
             </ul>
         </div>
     </div>
@@ -30,55 +30,56 @@
         <div class="section">
             <h3>자기소개1234</h3>
 
-            <p th:text="${title}"></p>
+            <p></p>
         </div>
         <!-- 학력 -->
         <div class="section">
             <h3>학력사항</h3>
-            <div class="education-item">
-                <h4>${schoolName}</h4>
-                <p>${major} - ${degree}</p>
-                <p>${startDate} - ${endDate}</p>
-                <p>학점: ${gpa}</p>
-            </div>
-            <div class="education-item">
-                <h4>${schoolName}</h4>
-                <p>${major} - ${degree}</p>
-                <p>${startDate} - ${endDate}</p>
-                <p>학점: ${gpa}</p>
+            <div class="education-item" th:each="education : ${data['educations']}">
+                <h4 th:text="${education.schoolName}"></h4>
+                <p th:text="${education.degree}"></p>
+                <p th:text="${education.departmentName}"></p>
+                <p th:text="${education.gpa}"></p>
+                <p th:text="${education.startDate}"></p>
+                <p th:text="${education.endDate}"></p>
+<!--                <p>${startDate} - ${endDate}</p>-->
+<!--                <p>학점: ${gpa}</p>-->
             </div>
         </div>
         <!-- 경력 -->
         <div class="section">
             <h3>경력사항</h3>
-            <div class="career-item">
-                <h4>${companyName}</h4>
-                <p>${position}</p>
-                <p>${startDate} - ${endDate}</p>
-                <p>${description}</p>
+            <div class="career-item" th:each="career : ${data['careers']}">
+                <h4 th:text="${career.companyName}"></h4>
+                <p th:text="${career.deptName}"></p>
+                <p th:text="${career.description}"></p>
+                <p th:text="${career.startDate}"></p>
+                <p th:text="${career.endDate}"></p>
+                <p th:text="${career.grade}"></p>
+                <p th:text="${career.jobCategory}"></p>
             </div>
         </div>
 
         <div class="section">
             <h3>프로젝트</h3>
-            <div class="project-item">
-                <h4>${companyName}</h4>
-                <p>${position}</p>
-                <p>${startDate} - ${endDate}</p>
-                <p>${description}</p>
-            </div>
-            <div class="project-item">
-                <h4>${companyName}</h4>
-                <p>${position}</p>
-                <p>${startDate} - ${endDate}</p>
-                <p>${description}</p>
-            </div>
-            <div class="project-item">
-                <h4>${companyName}</h4>
-                <p>${position}</p>
-                <p>${startDate} - ${endDate}</p>
-                <p>${description}</p>
-            </div>
+<!--            <div class="project-item">-->
+<!--                <h4>${companyName}</h4>-->
+<!--                <p>${position}</p>-->
+<!--                <p>${startDate} - ${endDate}</p>-->
+<!--                <p>${description}</p>-->
+<!--            </div>-->
+<!--            <div class="project-item">-->
+<!--                <h4>${companyName}</h4>-->
+<!--                <p>${position}</p>-->
+<!--                <p>${startDate} - ${endDate}</p>-->
+<!--                <p>${description}</p>-->
+<!--            </div>-->
+<!--            <div class="project-item">-->
+<!--                <h4>${companyName}</h4>-->
+<!--                <p>${position}</p>-->
+<!--                <p>${startDate} - ${endDate}</p>-->
+<!--                <p>${description}</p>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

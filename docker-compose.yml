@@ -11,8 +11,9 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - data_mysqldb:/var/lib/mysqldb
+      - ./src/main/resources/dummy-data.sql:/docker-entrypoint-initdb.d/dummy-data.sql
+      - ./mysql-config/my.cnf:/etc/mysql/conf.d/my.cnf  # 사용자 정의 설정 파일
     tty: true
 
 volumes:
-  data_mysqldb: null
+  mysql_data:
