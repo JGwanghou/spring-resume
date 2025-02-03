@@ -1,6 +1,5 @@
-package com.resume.gwangho.infrastructure;
+package com.resume.gwangho.infrastructure.jpa;
 
-import com.resume.gwangho.model.Career;
 import com.resume.gwangho.model.Education;
 import org.springframework.data.jpa.repository.JpaRepository;
 

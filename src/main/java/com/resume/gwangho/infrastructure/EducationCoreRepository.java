@@ -1,7 +1,7 @@
 package com.resume.gwangho.infrastructure;
 
+import com.resume.gwangho.infrastructure.jpa.EducationJpaRepository;
 import com.resume.gwangho.model.Education;
-import com.resume.gwangho.repository.CareerRepository;
 import com.resume.gwangho.repository.EducationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

@@ -4,4 +4,5 @@ import com.resume.gwangho.model.User;
 
 public interface UserRepository {
     User findByIdOrThrow(Long userId);
+    User save(User entity);
 }

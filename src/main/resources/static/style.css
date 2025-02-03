@@ -53,14 +53,14 @@ h5{
     gap: 20px; /* 두 박스 사이의 간격 */
 }
 
-.career-box, .education-box {
+.career-box, .activity-box {
     width: 50%;
 }
 
 
 .nobox{
     font-family: 'Tapestry', cursive;
-    font-size: 35px;
+    font-size: 20px;
     text-align: center;
     font-weight: bold;
 }
@@ -71,7 +71,6 @@ h5{
 
 .img-box{
     display: inline-block;
-    border-style:double;
 }
 
 .sns-img{

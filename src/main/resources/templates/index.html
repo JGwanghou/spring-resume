@@ -1,87 +1,188 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>::조광호 이력서::</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
-    <title>이력서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Rubik+Bubbles&family=Rubik+Puddles&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-<div class="resume">
-    <div class="left-section">
-        <!-- 개인정보 및 사진 -->
-        <div class="section">
-<!--            <img class="photo" src="${photoUrl}" alt="프로필 사진">-->
-            <h2 th:text="${data['user'].name}">이름</h2>
-            <p th:text="${data['user'].email}">이메일</p>
-            <p th:text="${data['user'].phone}">번호</p>
-            <p th:text="${data['user'].address}">주소</p>
+<div class="mainbox">
+    <h1 class="name">조광호<br></h1>
+    <h3 style="border-bottom: 0; font-size: 13px;">
+        <a href ="#"><img class="sns-img" src="logo.png"></a>
+        현재시간 : <span id="time"></span>
+    </h3>
+    <hr>
+    <div class="sub-box">
+        <section>
+            <h3>ABOUT ME</h3>
+        </section>
+        <div class="img-box">
+            <img src="" height=210 width=210 class="profileImage">
         </div>
-        <!-- 자격증/스킬 -->
-        <div class="section">
-            <h3>자격증 및 스킬</h3>
+        <div class="font">
+            <div>- 이름 : <span class="name"></span></div>
+            <div>- 생년월일 : <span class="birth"></span></div>
+            <div>- 이메일 : <span class="email"></span></div>
+            <div>- 핸드폰 : <span class="phone"></span></div>
+            <div>- 주소 : <span class="address"></span></div>
+            <div>기술 스택</div>
             <ul>
-                <li>스킬</li>
+                <li>Java</li>
+                <li>Spring(Spring Boot)</li>
+                <li>MySQL</li>
             </ul>
+
+        </div>
+    </div>
+    <br>
+
+    <div class="sub-box">
+        <div class="row-container">
+
+            <div class="career-box">
+                <section>
+                    <h3>경력</h3>
+                </section>
+                <div class="text-box">
+                    <p class="text"></p>
+                    <p class="year-text"></p>
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <section>
+                    <h3>교육이력</h3>
+                </section>
+                <div class="text-box">
+                    <p class="text"></p>
+                    <p class="year-text"></p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="right-section">
-        <!-- 자기소개 -->
-        <div class="section">
-            <h3>자기소개1234</h3>
-
-            <p></p>
-        </div>
-        <!-- 학력 -->
-        <div class="section">
-            <h3>학력사항</h3>
-            <div class="education-item" th:each="education : ${data['educations']}">
-                <h4 th:text="${education.schoolName}"></h4>
-                <p th:text="${education.degree}"></p>
-                <p th:text="${education.departmentName}"></p>
-                <p th:text="${education.gpa}"></p>
-                <p th:text="${education.startDate}"></p>
-                <p th:text="${education.endDate}"></p>
-<!--                <p>${startDate} - ${endDate}</p>-->
-<!--                <p>학점: ${gpa}</p>-->
-            </div>
-        </div>
-        <!-- 경력 -->
-        <div class="section">
-            <h3>경력사항</h3>
-            <div class="career-item" th:each="career : ${data['careers']}">
-                <h4 th:text="${career.companyName}"></h4>
-                <p th:text="${career.deptName}"></p>
-                <p th:text="${career.description}"></p>
-                <p th:text="${career.startDate}"></p>
-                <p th:text="${career.endDate}"></p>
-                <p th:text="${career.grade}"></p>
-                <p th:text="${career.jobCategory}"></p>
-            </div>
-        </div>
-
-        <div class="section">
+    <div class="sub-box project-box">
+        <section>
             <h3>프로젝트</h3>
-<!--            <div class="project-item">-->
-<!--                <h4>${companyName}</h4>-->
-<!--                <p>${position}</p>-->
-<!--                <p>${startDate} - ${endDate}</p>-->
-<!--                <p>${description}</p>-->
-<!--            </div>-->
-<!--            <div class="project-item">-->
-<!--                <h4>${companyName}</h4>-->
-<!--                <p>${position}</p>-->
-<!--                <p>${startDate} - ${endDate}</p>-->
-<!--                <p>${description}</p>-->
-<!--            </div>-->
-<!--            <div class="project-item">-->
-<!--                <h4>${companyName}</h4>-->
-<!--                <p>${position}</p>-->
-<!--                <p>${startDate} - ${endDate}</p>-->
-<!--                <p>${description}</p>-->
-<!--            </div>-->
+        </section>
+        <div class="text-box">
+            <p class="text"></p>
+            <p class="year-text"></p>
         </div>
     </div>
+
+    <div class="sub-box education-box">
+        <section>
+            <h3>학력사항</h3>
+        </section>
+        <div class="text-box">
+            <p class="text"></p>
+            <p class="year-text"></p>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+
 </div>
+<script>
+    $(document).ready(function() {
+        let userId = 1;
+
+        $.ajax({
+            url: "api/v1/resumes/" + userId,
+            type: "GET",
+            dataType: "json",
+            success: function(response) {
+                renderUserHtml(response);
+                renderHisotryHtml(response);
+            },
+            error: function(xhr, status, error) {
+                console.error("이력서 정보를 불러오는 중 오류 발생:", error);
+            }
+        });
+
+        function renderUserHtml(response){
+            $.each(response.user, function (key, value) {
+                $('.' + key).text(value);
+
+                if(key === "profileImage"){
+                    $('.profileImage').attr('src', value);
+                }
+            });
+        }
+
+        function renderHisotryHtml(response){
+            console.log(response);
+
+            const careerBox = $(".career-box");
+            const educationBox = $(".education-box");
+            const projectBox = $(".project-box");
+            const activityBox = $(".activity-box");
+
+            const careerTextBox = careerBox.find(".text-box");
+            const educationTextBox = educationBox.find(".text-box");
+            const projectTextBox = projectBox.find(".text-box");
+            const activityTextBox = activityBox.find(".text-box");
+
+            // 경력 정보 삽입
+            $.each(response.careers, function(index, career) {
+                const newTextBox = careerTextBox.clone(); // 기존 text-box 복제
+                newTextBox.find(".text").text(career.companyName);
+                newTextBox.find(".year-text").text("(" + career.startDate.substring(0,7) + ' ~ ' + career.endDate.substring(0,7) + ")");
+
+                careerBox.append(newTextBox);
+            });
+
+            // 활동 이력 삽입
+            $.each(response.activities, function(index, active) {
+                const newActiveBox = activityTextBox.clone();
+                newActiveBox.find(".text").text(active.activeName);
+                newActiveBox.find(".year-text").text("(" + active.startDate.substring(0,7) + ' ~ ' + active.endDate.substring(0,7) + ")");
+
+                activityBox.append(newActiveBox);
+            });
+
+            // 프로젝트 정보 삽입
+            $.each(response.projects, function(index, project) {
+                const newProBox = projectTextBox.clone();
+                newProBox.find(".text").text(project.projectName);
+                newProBox.find(".year-text").text("(" + project.startDate.substring(0,7) + ' ~ ' + project.endDate.substring(0,7) + ")");
+
+                projectBox.append(newProBox);
+            });
+
+            // 학력 정보 삽입
+            $.each(response.educations, function(index, education) {
+                const newEduBox = educationTextBox.clone();
+                newEduBox.find(".text").text(education.schoolName + ' 졸업');
+                newEduBox.find(".year-text").text("(" + education.startDate.substring(0,7) + ' ~ ' + education.endDate.substring(0,7) + ")");
+
+                educationBox.append(newEduBox);
+            });
+
+            // 현재 시간 삽입
+            $('#time').text(response.time);
+            $('.user-text').text(response.user.text);
+
+            careerTextBox.remove();
+            educationTextBox.remove();
+            projectTextBox.remove();
+            activityTextBox.remove();
+        }
+    });
+</script>
 </body>
+<footer>
+    <p class = "nobox">
+        ✨ <span class="user-text">Thank You</span> ✨
+    </p>
+</footer>
 </html>

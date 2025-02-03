@@ -1,13 +1,9 @@
 package com.resume.gwangho.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,4 +17,25 @@ public class User {
     private String email;
     private String phone;
     private String address;
+    private LocalDateTime birth;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String profileImage;
+    private String text;
+
+    @Builder
+    public User(String name, String email, String phone, String address, String profileImage, String text, LocalDateTime birth) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.profileImage = profileImage;
+        this.text = text;
+        this.birth = birth;
+    }
+
+    public void updateProfile(String profileImage, String text) {
+        this.profileImage = profileImage;
+        this.text = text;
+    }
 }
