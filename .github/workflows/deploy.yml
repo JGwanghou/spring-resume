@@ -28,19 +28,27 @@ jobs:
       - name: 테스트 및 빌드
         run: ./gradlew clean build -x test
 
-      - name: 식별하기 좋게 빌드 파일명 변경
-        run: mv ./build/libs/*SNAPSHOT.jar ./gwangho-success.jar
-
-      - name: SCP로 EC2에 빌드된 파일 전송
-        uses: appleboy/scp-action@v0.1.7
+      - name: AWS Resource에 접근할 수 있게 AWS credentials 설정
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          source: gwangho-success.jar
-          target: /home/ubuntu/ho-resume/tobe
+          aws-region: ap-northeast-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name : EC2 SSH 접속하기
+      - name: ECR 로그인
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Docker 이미지 생성
+        run: docker build -t ho-resume .
+
+      - name: Docker 이미지에 Tag 붙이기
+        run: docker tag ho-resume ${{ steps.login-ecr.outputs.registry }}/commerce-server-ecr:latest
+
+      - name: ECR에 Docker 이미지 Push하기
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/commerce-server-ecr:latest
+
+      - name: SSH로 EC2에 접속하기
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -48,10 +56,7 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script_stop: true
           script: |
-            rm -rf /home/ubuntu/ho-resume/current
-            mkdir /home/ubuntu/ho-resume/current
-            mv /home/ubuntu/ho-resume/tobe/gwangho-success.jar /home/ubuntu/ho-resume/current/gwangho-success.jar
-            cd /home/ubuntu/ho-resume/current
-            sudo fuser -k -n tcp 8080 || true
-            nohup java -jar gwangho-success.jar > ./output.log 2>&1 &
-            rm -rf /home/ubuntu/ho-resume/tobe
+            docker stop ho-resume || true
+            docker rm ho-resume || true
+            docker pull ${{ steps.login-ecr.outputs.registry }}/commerce-server-ecr:latest
+            docker run -d --name ho-resume -p 8080:8080 ${{ steps.login-ecr.outputs.registry }}/commerce-server-ecr:latest
